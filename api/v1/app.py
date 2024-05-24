@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 """ Script that imports a Blueprint and runs Flask """
 
 from flask import Flask
