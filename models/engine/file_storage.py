@@ -1,22 +1,26 @@
 #!/usr/bin/python3
 """
-Contains the FileStorage class
+Handles I/O, writing and reading, of JSON for storage of all class instances
 """
-
 import json
-from models.amenity import Amenity
-from models.base_model import BaseModel
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
-from models.user import User
+from models import base_model, amenity, city, place, review, state, user
+from datetime import datetime
 
-classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
-           "Place": Place, "Review": Review, "State": State, "User": User}
-
+strptime = datetime.strptime
+to_json = base_model.BaseModel.to_json
 
 class FileStorage:
+    """handles storage of all class instances"""
+    CNC = {
+        'BaseModel': base_model.BaseModel,
+        'Amenity': amenity.Amenity,
+        'City': city.City,
+        'Place': place.Place,
+        'Review': review.Review,
+        'State': state.State,
+        'User': user.User
+    }
+
     """serializes instances to a JSON file & deserializes back to instances"""
 
     # string - path to the JSON file
@@ -68,3 +72,29 @@ class FileStorage:
     def close(self):
         """call reload() method for deserializing the JSON file to objects"""
         self.reload()
+
+    def get(self, cls, id):
+        """ A method to retrieve one object """
+        class_objects = self.all(cls)
+            
+        for objs in class_objects.values():
+            if str(objs.id) == id:
+                return objs
+        
+        return None
+
+    def count(self, cls=None):
+        """ A method to count the number of objects in storage """
+
+        # count = 0
+        # if cls in classes:
+        #     class_objects = self.all(cls)
+
+        #     return len(class_objects)
+        # else:
+        #     for objs in classes:
+        #         all_objects = self.all(objs)
+        #         count += len(all_objects)
+            
+        #     return count
+        return len(self.all(cls))
