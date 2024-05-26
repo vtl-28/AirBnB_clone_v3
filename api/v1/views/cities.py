@@ -11,6 +11,8 @@ from models import storage
 @app_views.route('/states/<state_id>/cities', methods=['GET'],
                  strict_slashes=False)
 def get_cities(state_id):
+    """ get a list of cities
+    registered on state_id """
     state = storage.get(State, state_id)
     if not state:
         abort(404)
@@ -20,6 +22,7 @@ def get_cities(state_id):
 
 @app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
 def get_city(city_id):
+    """ get city using city id """
     city = storage.get(City, city_id)
     if not city:
         abort(404)
@@ -28,6 +31,8 @@ def get_city(city_id):
 
 @app_views.route('/cities/<city_id>', methods=['DELETE'], strict_slashes=False)
 def del_city(city_id):
+    """ delete the city using
+    city id """
     city = storage.get(City, city_id)
     if not city:
         abort(404)
@@ -39,6 +44,8 @@ def del_city(city_id):
 @app_views.route('/states/<state_id>/cities', methods=['POST'],
                  strict_slashes=False)
 def create_city(state_id):
+    """ create a new city registered with
+    a state id """
     state = storage.get(State, state_id)
     if not state:
         abort(404)
@@ -56,6 +63,7 @@ def create_city(state_id):
 
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def update_city(city_id):
+    """ update the city using the id """
     city = storage.get(City, city_id)
     if not city:
         abort(404)
