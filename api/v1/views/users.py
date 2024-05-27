@@ -14,7 +14,7 @@ def get_users():
     return jsonify(users)
 
 
-@app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False]
+@app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
 def get_user(user_id):
     """
     Retrieves user in the database based on their ID """
